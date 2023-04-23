@@ -4,17 +4,15 @@ import { Hono } from "hono";
 export const api = new Hono();
 
 api.get("/geo", (c) => {
-  const { city, country, countryRegion, latitude, longitude, region } =
-    geolocation(c.req);
+  const location = geolocation(c.req);
 
+  return c.json({
+    data: location,
+  });
+});
+
+api.get("/hello", (c) => {
   return c.jsonT({
-    message: {
-      city,
-      country,
-      countryRegion,
-      latitude,
-      longitude,
-      region,
-    },
+    message: `Hello, ${c.req.headers.get("host")}`,
   });
 });
