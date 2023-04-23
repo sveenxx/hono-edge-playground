@@ -4,12 +4,12 @@ import { Hono } from "hono";
 
 export const config = {
   runtime: "edge",
+  regions: ["iad1"],
 };
 
 const app = new Hono();
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-export default app;
+export default async (req: Request, ctx: RequestContext) => {
+  app.get("/", (c) => c.text("Hello Fastly!"));
+  app.fire();
+};
