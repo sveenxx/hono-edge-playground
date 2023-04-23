@@ -1,6 +1,7 @@
 import type { RequestContext } from "@vercel/edge";
 
 import { Hono } from "hono";
+import { handle } from "hono/nextjs";
 
 export const config = {
   runtime: "edge",
@@ -9,7 +10,10 @@ export const config = {
 
 const app = new Hono();
 
-export default async (req: Request, ctx: RequestContext) => {
-  app.get("/", (c) => c.text("Hello Fastly!"));
-  app.fire();
-};
+app.get("/hello", (c) => {
+  return c.json({
+    message: "Hello Next.js!",
+  });
+});
+
+export default handle(app);
