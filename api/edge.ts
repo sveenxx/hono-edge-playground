@@ -3,7 +3,7 @@ import { app } from "../src";
 
 export const config = {
   runtime: "edge",
-  regions: ["iad1"],
+  regions: ["bru1"],
 };
 
 export default handle(app);
